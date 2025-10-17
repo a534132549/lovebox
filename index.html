@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>约会盲盒 Lovebox - 让每次约会都充满惊喜</title>
+    <link rel="stylesheet" href="src/css/style.css">
+</head>
+<body>
+    <!-- 导航栏 -->
+    <nav class="navbar">
+        <div class="nav-container">
+            <div class="logo">💝 约会盲盒</div>
+            <ul class="nav-menu">
+                <li><a href="index.html" class="active">盲盒抽取</a></li>
+                <li><a href="guide.html">恋爱指南</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <!-- 主内容区 -->
+    <main class="main-container">
+        <!-- 欢迎区域 -->
+        <section class="welcome-section">
+            <h1 class="main-title">开启你们的约会盲盒</h1>
+            <p class="subtitle">每一次新奇的体验，都是感情升温的契机</p>
+        </section>
+
+        <!-- 盲盒抽取区域 -->
+        <section class="blindbox-section">
+            <div class="blindbox-container" id="blindboxContainer">
+                <!-- 初始状态：显示抽取按钮 -->
+                <div class="draw-state" id="drawState">
+                    <!-- 筛选器 -->
+                    <div class="filter-section">
+                        <p class="filter-title">🔍 快速筛选（可选）</p>
+                        <div class="filter-group">
+                            <label class="filter-label">⏰ 时间：</label>
+                            <div class="filter-buttons">
+                                <button class="filter-btn" data-filter-type="duration" data-filter-value="30分钟内">30分钟内</button>
+                                <button class="filter-btn" data-filter-type="duration" data-filter-value="1-2小时">1-2小时</button>
+                                <button class="filter-btn" data-filter-type="duration" data-filter-value="半天以上">半天以上</button>
+                            </div>
+                        </div>
+                        <div class="filter-group">
+                            <label class="filter-label">📍 场景：</label>
+                            <div class="filter-buttons">
+                                <button class="filter-btn" data-filter-type="location" data-filter-value="在家">在家</button>
+                                <button class="filter-btn" data-filter-type="location" data-filter-value="外出">外出</button>
+                            </div>
+                        </div>
+                        <div class="filter-group">
+                            <label class="filter-label">💰 预算：</label>
+                            <div class="filter-buttons">
+                                <button class="filter-btn" data-filter-type="budget" data-filter-value="免费">免费</button>
+                                <button class="filter-btn" data-filter-type="budget" data-filter-value="<100元"><100元</button>
+                                <button class="filter-btn" data-filter-type="budget" data-filter-value=">100元">>100元</button>
+                            </div>
+                        </div>
+                        <button class="clear-filter-btn" id="clearFilterBtn">清除筛选</button>
+                    </div>
+
+                    <div class="blindbox-icon">🎁</div>
+                    <button class="draw-button" id="drawButton">
+                        <span>抽取今日约会灵感</span>
+                    </button>
+                    <p class="hint-text">今日剩余抽取次数: <span id="remainingDraws">1</span></p>
+                    <p class="hint-text" style="font-size: 0.9em; color: #999;">每次可以换3次哦</p>
+                </div>
+
+                <!-- 加载动画 -->
+                <div class="loading-state hidden" id="loadingState">
+                    <div class="loading-animation">
+                        <div class="box-animation">🎁</div>
+                        <p>正在为你寻找最适合的约会灵感...</p>
+                    </div>
+                </div>
+
+                <!-- 任务卡片 -->
+                <div class="card-state hidden" id="cardState">
+                    <div class="task-card">
+                        <div class="card-header">
+                            <span class="category-tag" id="categoryTag">#冒险与新奇</span>
+                        </div>
+                        <h2 class="task-title" id="taskTitle">探索城市新角落</h2>
+                        <p class="task-description" id="taskDescription">
+                            选择一个你们从未去过的城市区域，漫无目的地探索2小时...
+                        </p>
+
+                        <!-- 科学小贴士（可展开） -->
+                        <div class="tip-section">
+                            <button class="tip-toggle" id="tipToggle">
+                                <span>💡 为什么这样能增进感情？</span>
+                                <span class="toggle-icon">▼</span>
+                            </button>
+                            <div class="tip-content hidden" id="tipContent">
+                                <p id="taskScience">心理学研究表明...</p>
+                            </div>
+                        </div>
+
+                        <!-- 行动步骤 -->
+                        <div class="steps-section">
+                            <h3>行动建议：</h3>
+                            <ol class="steps-list" id="stepsList">
+                                <li>准备一份简单的零食和水</li>
+                                <li>随机选择一个方向开始探索</li>
+                                <li>拍照记录有趣的发现</li>
+                            </ol>
+                        </div>
+
+                        <!-- 操作按钮 -->
+                        <div class="card-actions">
+                            <button class="action-button secondary" id="changeButton">
+                                <span>🔄 换一个</span>
+                                <small>剩余 <span id="remainingChanges">3</span> 次</small>
+                            </button>
+                            <button class="action-button primary" id="confirmButton">
+                                ❤️ 就这个了！
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 说明区域 -->
+        <section class="info-section">
+            <div class="info-card">
+                <h3>🎯 关于约会盲盒</h3>
+                <p>我们的每个任务都基于心理学研究精心设计，旨在通过新奇、有趣的共同体验，帮助你们建立更深的情感连接。</p>
+            </div>
+            <div class="info-card">
+                <h3>📚 5大任务类别</h3>
+                <ul class="category-list">
+                    <li><strong>冒险与新奇：</strong>制造多巴胺，将兴奋感与伴侣关联</li>
+                    <li><strong>深度连接：</strong>促进脆弱感分享，增强情感亲密度</li>
+                    <li><strong>团队协作：</strong>强化"我们感"，培养共同解决问题能力</li>
+                    <li><strong>玩乐与放松：</strong>降低压力，增加催产素分泌</li>
+                    <li><strong>价值与未来：</strong>统一对未来的认知和期待</li>
+                </ul>
+            </div>
+        </section>
+    </main>
+
+    <!-- 页脚 -->
+    <footer class="footer">
+        <p>💕 愿每对情侣都能找到属于自己的幸福密码</p>
+        <p class="footer-note">本应用内容基于约翰·戈特曼和阿瑟·亚伦的关系心理学研究</p>
+    </footer>
+
+    <script src="src/js/app.js"></script>
+</body>
+</html>
