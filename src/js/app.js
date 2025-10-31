@@ -10,6 +10,7 @@ const STORAGE_KEY_USED_TASKS = 'lovebox_used_tasks';
 
 // 筛选器状态
 let activeFilters = {
+    stage: null,
     duration: null,
     location: null,
     budget: null
@@ -221,6 +222,9 @@ function getRandomTask() {
     // 首先根据筛选条件过滤任务
     let filteredTasks = allTasks.filter(task => {
         // 如果有筛选条件，检查是否匹配
+        if (activeFilters.stage && task.stage !== activeFilters.stage) {
+            return false;
+        }
         if (activeFilters.duration && task.duration !== activeFilters.duration) {
             return false;
         }
@@ -262,8 +266,8 @@ function getRandomTask() {
 
 // ==================== 显示任务卡片 ====================
 function displayTask(task) {
-    // 更新分类标签
-    categoryTagEl.textContent = `#${task.category}`;
+    // 更新分类标签（显示阶段 + 类别）
+    categoryTagEl.textContent = `#${task.stage} · ${task.category}`;
 
     // 更新标题和描述
     taskTitleEl.textContent = task.title;
@@ -361,6 +365,7 @@ function handleFilterClick(event) {
 function clearFilters() {
     // 重置筛选状态
     activeFilters = {
+        stage: null,
         duration: null,
         location: null,
         budget: null
